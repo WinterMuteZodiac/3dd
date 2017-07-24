@@ -6,7 +6,7 @@ var camera;
 var renderer;
 var controls;
 var sphere = [];
-var N = 8;
+var N = 4;
 var twoExist;
 var spherelist = [];
 var save = [];
@@ -499,7 +499,7 @@ function best(){
 
   //hope[i] = [(勝利数), (この手でのプレイ回数), (x座標), (y座標), (z座標), (ucb1値)]
 
-  for(var i = 0; i < loop*2; i++){
+  for(var i = 0; i < loop*3; i++){
 
     var hopebest = maxhope(hope);
 
@@ -517,7 +517,7 @@ function best(){
     for(var j = 0; j < hope.length; j++){
 
       //モンテカルロ木の伸ばした枝まで更新
-      hope[j][4] =  ucb(hope[j][0], hope[j][1], total+i+1);
+      hope[j][5] =  ucb(hope[j][0], hope[j][1], total+i+1);
 
     }
   
@@ -525,11 +525,7 @@ function best(){
 
   hopebest = maxhope(hope);
 
-  for(var i = 0; i < hope.length; i++){
-    alert(hope[i]);
-  }
 
-  alert(hopebest);
   //最適な手段を選択
   return [hopebest[0][2], hopebest[0][3], hopebest[0][4]];
 }
@@ -546,7 +542,7 @@ function zodiac(){
   var xyz = 0;
 
   //19局面までrandkun
-  if(step < 20) xyz = randkun(0);
+  if(step < 0) xyz = randkun(0);
 
   //19局面以降
   else{
