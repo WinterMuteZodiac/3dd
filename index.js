@@ -1,5 +1,5 @@
-var width; //window.innerWidth;
-var height; //window.innerHeight;
+let width; //window.innerWidth;
+let height; //window.innerHeight;
 var rad = 3;
 var scene;
 var camera;
@@ -42,7 +42,7 @@ function init(){
   windSize(); //Windowサイズ取得
 
   scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(100, width / height, 1, 1000);
+  camera = new THREE.PerspectiveCamera(40, width / height, 1, 1000);
   controls = new THREE.OrbitControls(camera);
   controls.autoRotate = true;
   renderer = createRenderer(width, height);
@@ -52,7 +52,7 @@ function init(){
     sphere[i] = [];
     for(var j = 0; j < N; j++){
       sphere[i][j] = [];
-      for(var k = 0; k < N; k++){
+      for(var k = 0; k < N; k++){ // 初期配置のif文(中央の8つ)
         if((i == N/2-1 && j == N/2-1 && k == N/2-1) || (i == N/2-1 && j == N/2 && k == N/2-1) || (i == N/2-1 && j == N/2-1 && k == N/2) || (i == N/2-1 && j == N/2 && k == N/2)){
           sphere[i][j][k] = createSphere(rad, -1, i, j, k);
         }else if((i == N/2 && j == N/2-1 && k == N/2-1) || (i == N/2 && j == N/2 && k == N/2-1) || (i == N/2 && j == N/2-1 && k == N/2) || (i == N/2 && j == N/2 && k == N/2)){
@@ -80,7 +80,7 @@ function init(){
 function createRenderer(width, height){
   var renderer = new THREE.WebGLRenderer();
   renderer.setSize(width, height);
-  renderer.setClearColor(0x2EFE2E, 1);
+  renderer.setClearColor(0x2e8b57, 1);
   document.body.appendChild(renderer.domElement);
   return renderer;
 }
@@ -192,10 +192,7 @@ function update(){
     else if(wlh("zodiac")) vsAI = "zodiac";
     else if(wlh("human")) vsAI = "human";
     if(vsAI != 0) for(var i = 0; i < aiList.length; i++){
-      if(aiList[i] != vsAI){
-        tmp = document.getElementById(aiList[i]);
-        tmp.parentNode.removeChild(tmp);
-      }
+      document.scrollingElement.scrollTop = document.getElementById("now").getBoundingClientRect().top-20;
       flag = 2;
     }
   }else if(flag == 2){
